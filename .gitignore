@@ -45,5 +45,5 @@ node_modules
 .floo
 .flooignore
 
-## API keys
+## API keys (ignores the file when commiting to github)
 client/env/config.js
