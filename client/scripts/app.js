@@ -37,11 +37,12 @@ $(document).ready(function() {
   };
 
   app.renderMessage = function(obj) {
+    
     var $text = $(`<p class ='chat'>${obj.text}</p>`);
-    var $username = $(`<p class="username">${obj.username }</p>`);
+    var $username = $(`<p class="username">${obj.username}</p>`);
     var $chatSpan = $username + $text;
     // $chat.attr(text and username ).addClass('chat')
-
+    console.log($username[0]);
     $('#chats').append($username);
   };
 
@@ -50,21 +51,22 @@ $(document).ready(function() {
     $('#roomSelect').append('<p>roomName</p>');
   }; 
   
+  
   app.handleUsernameClick = function() { 
-    // $('button').on('click', function() {
-    //   var r = $('<input type="button" value="befriend username"/>');
-    //   $('.username').append('<button class="befriend username">r</button>');
-    // });
-    
-    $('.username').on('click', function() {
-      var r = $('<input type="button" value="{username}"/>');
+    console.log('hello')
+    $(document).on('click', '.username', function() {
+      $(this).css({'font-weight': 800});
       
     });
+    //$('#main').attr()
+
   };
   
   app.handleSubmit = function() { 
     
   };
+  
+
   app.renderMessage(message);
 });
 
