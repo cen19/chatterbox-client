@@ -3,9 +3,11 @@ app.server = 'http://parse.sfm6.hackreactor.com/chatterbox/classes/messages';
 
 
 app.init = function() {
-  // listners for user input to invoke app methods. 
+  // listners for user input to invoke app methods.
+  // console.log(app.fetch());
   app.handleUsernameClick();
   app.handleSubmit();
+  
 };
 
 var message = {
@@ -14,8 +16,8 @@ var message = {
   roomname: 'lobby'
 };
 
-
 $(document).ready(function() {
+  
   app.send = function(obj) { 
     $.ajax({
       type: 'POST',
@@ -29,8 +31,16 @@ $(document).ready(function() {
   app.fetch = function () { 
     $.ajax({
       type: 'GET',
-      url: app.server
-      
+      url: app.server,
+      success: function(data) {
+        data.results.forEach(chat => { 
+          app.renderMessage(chat);
+        });
+        
+      },
+      error: function() {
+        console.log('error');
+      }
     });
   };
 
@@ -39,23 +49,28 @@ $(document).ready(function() {
   };
 
   app.renderMessage = function(obj) {
+    app.fetch()
+    var $chat = $('<div class="chat"> </div>' );
+    $chat.text(obj.username + ': ' + obj.text);
+    $chat.addClass(`${obj.roomname}`);
+
     
-    var $text = $(`<p class ='chat'>${obj.text}</p>`);
-    var $username = $(`<p class="username">${obj.username}</p>`);
-    var $chatSpan = $username + $text;
+    // var $text = $(`<p class ='chat'>${obj.text}</p>`);
+    // var $username = $(`<p class="username">${obj.username}</p>`);
+    // var $chatSpan = $username + $text;
     // $chat.attr(text and username ).addClass('chat')
     // console.log($username[0]);
-    $('#chats').append($username);
+    $('#chats').append($chat);
   };
 
   app.renderRoom = function(roomName) {
-    console.log($('#roomSelect'));
+    // console.log($('#roomSelect'));
     $('#roomSelect').append('<p>roomName</p>');
   }; 
   
   
   app.handleUsernameClick = function() { 
-    console.log('hello');
+    // console.log('hello');
     $(document).on('click', '.username', function() {
       $(this).css({'font-weight': 800});
     });
@@ -66,7 +81,7 @@ $(document).ready(function() {
     console.log('hello');
   };
   
-
+  app.renderMessage(message);
   
 });
 
