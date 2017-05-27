@@ -1,15 +1,23 @@
 var app = {};
+app.server = 'http://parse.sfm6.hackreactor.com/chatterbox/classes/messages';
 
 
 app.init = function() {
   
 };
 
+var message = {
+  username: 'Mel Brooks',
+  text: 'It\'s good to be the king',
+  roomname: 'lobby'
+};
+
+
 $(document).ready(function() {
   app.send = function(obj) { 
     $.ajax({
       type: 'POST',
-      url: 'http://parse.sfm6.hackreactor.com/chatterbox/classes/messages',
+      url: app.server,
       data: JSON.stringify(obj),
       contentType: 'application/json',
       success: null,
@@ -19,34 +27,47 @@ $(document).ready(function() {
   app.fetch = function () { 
     $.ajax({
       type: 'GET',
-      url: undefined
+      url: app.server
       
     });
   };
 
-  app.clearMessages = function() {
+  app.clearMessages = function() {        
     $('#chats').empty();
   };
 
-
   app.renderMessage = function(obj) {
-    console.log(obj);
-    var username = obj.username;
-    var roomname = obj.roomname;
-    var text = obj.text;
-    // $something = $(something)
-    // $('#chats').prepend(`<span>${obj.text}</span>`);
-    // app.send($(`<span>${obj.text}</span>`).appendTo('#chats'));
-    // $('#chats').prepend(`<span>${obj.text}</span>`);
-    $('#chats').append('<p>text</p>');
+    var $text = $(`<p class ='chat'>${obj.text}</p>`);
+    var $username = $(`<p class="username">${obj.username }</p>`);
+    var $chatSpan = $username + $text;
+    // $chat.attr(text and username ).addClass('chat')
+
+    $('#chats').append($username);
   };
 
-  app.renderRoom = function() {
-    
+  app.renderRoom = function(roomName) {
+    console.log($('#roomSelect'));
+    $('#roomSelect').append('<p>roomName</p>');
   }; 
-
-
-
+  
+  app.handleUsernameClick = function() { 
+    // $('button').on('click', function() {
+    //   var r = $('<input type="button" value="befriend username"/>');
+    //   $('.username').append('<button class="befriend username">r</button>');
+    // });
+    
+    $('.username').on('click', function() {
+      var r = $('<input type="button" value="{username}"/>');
+      
+    });
+  };
+  
+  app.handleSubmit = function() { 
+    
+  };
   app.renderMessage(message);
 });
+
+
+
 
