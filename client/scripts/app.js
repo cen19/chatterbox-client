@@ -3,7 +3,9 @@ app.server = 'http://parse.sfm6.hackreactor.com/chatterbox/classes/messages';
 
 
 app.init = function() {
-  
+  // listners for user input to invoke app methods. 
+  app.handleUsernameClick();
+  app.handleSubmit();
 };
 
 var message = {
@@ -42,7 +44,7 @@ $(document).ready(function() {
     var $username = $(`<p class="username">${obj.username}</p>`);
     var $chatSpan = $username + $text;
     // $chat.attr(text and username ).addClass('chat')
-    console.log($username[0]);
+    // console.log($username[0]);
     $('#chats').append($username);
   };
 
@@ -53,21 +55,19 @@ $(document).ready(function() {
   
   
   app.handleUsernameClick = function() { 
-    console.log('hello')
+    console.log('hello');
     $(document).on('click', '.username', function() {
       $(this).css({'font-weight': 800});
-      
     });
-    //$('#main').attr()
-
   };
+  
   
   app.handleSubmit = function() { 
-    
+    console.log('hello');
   };
   
 
-  app.renderMessage(message);
+  
 });
 
 
