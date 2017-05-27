@@ -5,45 +5,48 @@ app.init = function() {
   
 };
 
-var message = {
-  username: 'Mel Brooks',
-  text: 'It\'s good to be the king',
-  roomname: 'lobby'
-};
+$(document).ready(function() {
+  app.send = function(obj) { 
+    $.ajax({
+      type: 'POST',
+      url: 'http://parse.sfm6.hackreactor.com/chatterbox/classes/messages',
+      data: JSON.stringify(obj),
+      contentType: 'application/json',
+      success: null,
+    });
+  };
+
+  app.fetch = function () { 
+    $.ajax({
+      type: 'GET',
+      url: undefined
+      
+    });
+  };
+
+  app.clearMessages = function() {
+    $('#chats').empty();
+  };
 
 
-app.send = function() {
-  $.ajax({
-    type: 'POST',
-    url: 'http://parse.sfm6.hackreactor.com/chatterbox/classes/messages',
-    data: JSON.stringify(message),
-    contentType: 'application/json',
-    success: null,
-  });
-};
+  app.renderMessage = function(obj) {
+    console.log(obj);
+    var username = obj.username;
+    var roomname = obj.roomname;
+    var text = obj.text;
+    // $something = $(something)
+    // $('#chats').prepend(`<span>${obj.text}</span>`);
+    // app.send($(`<span>${obj.text}</span>`).appendTo('#chats'));
+    // $('#chats').prepend(`<span>${obj.text}</span>`);
+    $('#chats').append('<p>text</p>');
+  };
 
-app.fetch = function () { 
-  $.ajax({
-    type: 'GET',
-    url: url,
+  app.renderRoom = function() {
     
-  });
-};
+  }; 
 
-app.clearMessages = function() {
-  $('#chats').remove();
-};
 
-var message = {
-  username: 'Mel Brooks',
-  text: 'Never underestimate the power of the Schwartz!',
-  roomname: 'lobby'
-};
 
-app.renderMessage = function() {
-  
-};
+  app.renderMessage(message);
+});
 
-app.renderRoom = function() {
-  
-};
